@@ -5,28 +5,28 @@ import json
 
 config = """{
 	"autobattle": {
-		"durAuto": 15,
-		"durManual": 60,
+		"durAuto": 5,
+		"durManual": 10,
 		"manualOn": 1,
 		"manualFirst": 1
 	},
 	"movement": {
 		"distMin": 0.2,
 		"distMax": 0.6,
-		"stepsMin": 6,
-		"stepsMax": 9
+		"stepsMin": 2,
+		"stepsMax": 3
 	},
 	"skills": {
-		"distribution": [0, 2, 2, 2],
+		"distribution": [1, 1],
 		"buttons": ["skill1"],
 		"waitMin": 0.3,
 		"waitMax": 0.5
 	},
 	"buffs": {
 		"enabled": 1,
-		"buttons": ["skill2", "skill3"],
-		"cdMin": 20,
-		"cdMax": 35,
+		"buttons": ["skill4", "skill3"],
+		"cdMin": 45,
+		"cdMax": 60,
 		"waitMin": 0.4,
 		"waitMax": 0.9,
 		"toggleNeeded": 0,
@@ -34,17 +34,15 @@ config = """{
 	},
 	"summons": {
 		"enabled": 1,
-		"buttons": ["skill3", "skill4"],
-		"cdMin": 120,
-		"cdMax": 240,
+		"buttons": ["skill5"],
+		"cdMin": 250,
+		"cdMax": 290,
 		"waitMin": 0.4,
 		"waitMax": 0.9
 	}
 }"""
 
 config_dict = json.loads(config)
-#print config_dict
-#print random.choice(range(config_dict["movement"]["stepsMin"],config_dict["movement"]["stepsMax"],1))
 
 # Allowing time to toggle to BlueStacks
 time.sleep(2.5)
