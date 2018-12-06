@@ -10,8 +10,8 @@ config = """{
 		"name": "emulator-5554"
 	},
 	"autobattle": {
-		"durAuto": 15,
-		"durManual": 60,
+		"durAuto": 60,
+		"durManual": 30,
 		"manualOn": 1,
 		"manualFirst": 1
 	},
@@ -22,24 +22,24 @@ config = """{
 		"stepsMax": 9
 	},
 	"skills": {
-		"distribution": [0, 2, 2, 2],
-		"buttons": ["skill1"],
-		"waitMin": 0.3,
-		"waitMax": 0.5
+		"distribution": [3],
+		"buttons": ["skill1", "skill2"],
+		"waitMin": 0.1,
+		"waitMax": 0.3
 	},
 	"buffs": {
 		"enabled": 1,
-		"buttons": ["skill2", "skill3"],
-		"cdMin": 20,
-		"cdMax": 35,
+		"buttons": ["skill3", "skill4", "skill2", "skill5", "skill1"],
+		"cdMin": 180,
+		"cdMax": 240,
 		"waitMin": 0.4,
 		"waitMax": 0.9,
-		"toggleNeeded": 0,
+		"toggleNeeded": 1,
 		"toggleButton": "toggle"
 	},
 	"summons": {
-		"enabled": 1,
-		"buttons": ["skill3", "skill4"],
+		"enabled": 0,
+		"buttons": ["skill3", "skill4", "skill2", "skill5"],
 		"cdMin": 120,
 		"cdMax": 240,
 		"waitMin": 0.4,

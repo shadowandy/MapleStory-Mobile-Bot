@@ -29,7 +29,7 @@ config = """{
 	},
 	"buffs": {
 		"enabled": 1,
-		"buttons": ["skill4", "skill3"],
+		"buttons": ["skill4"],
 		"cdMin": 45,
 		"cdMax": 60,
 		"waitMin": 0.4,
