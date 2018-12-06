@@ -4,7 +4,7 @@ This is a simple MapleStory M farmer done using Python. It simply sends keystrok
 
 To set it up, you will need:
 * An Android Emulator (i.e. BlueStacks, NOX)
-* This set of scripts (startFarmerSF80.py, msmFarmer.py, keypress.py, requirements.txt)
+* This set of scripts (startFarmerSF80.py, msmFarmerCfg.py, keypress.py, requirements.txt)
 * Python environment
 * MapleStory M account
 
@@ -29,7 +29,7 @@ Using this can get your MapleStory M account banned.
 
 Configurations
 ==============
-Most of the tweaks are found in the variable settings of msmFarmer.py.
+Most of the settings are found in the variable settings of startFarmer*.py.
 
 Can it be used for other games?
 ===============================
