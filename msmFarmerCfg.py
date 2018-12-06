@@ -1,3 +1,4 @@
+from adb.client import Client as AdbClient
 from keypress import keyPress
 import random
 import threading
@@ -11,13 +12,17 @@ movementCount = 0
 buffNow = 1
 summonNow = 1
 
+client = None
+device = None
 config_dict = { "shadow":"andy"}
 
 def setConfig(cfg):
-	global config_dict, movementCount
+	global config_dict, movementCount, client, device
 	config_dict = cfg
 	print(config_dict)
 	movementCount = random.choice(range(config_dict["movement"]["stepsMin"],config_dict["movement"]["stepsMax"],1))
+	client = AdbClient(host=config_dict["device"]["host"], port=config_dict["device"]["port"])
+	device = client.device(config_dict["device"]["name"])
 
 def toggleAuto():
 	global config_dict
@@ -28,7 +33,7 @@ def toggleAuto():
 		if not config_dict["autobattle"]["manualFirst"]:
 			config_dict["autobattle"]["manualOn"] = 0
 			time.sleep(random.uniform(1,1.3))
-			keyPress("ab", random.uniform(0.7,1.1))
+			keyPress(device, "ab", random.uniform(0.7,1.1))
 			time.sleep(random.uniform(0.3,0.7))
 			config_dict["autobattle"]["manualOn"] = 1
 		else:
@@ -37,9 +42,9 @@ def toggleAuto():
 	else:
 		config_dict["autobattle"]["manualOn"] = 0
 		time.sleep(random.uniform(0.8,1.1))
-		keyPress("ab", random.uniform(0.7,1.1))
+		keyPress(device, "ab", random.uniform(0.7,1.1))
 		time.sleep(random.uniform(0.9,1.3))
-		keyPress("abs", random.uniform(0.7,1.1))
+		keyPress(device, "abs", random.uniform(0.7,1.1))
 		config_dict["autobattle"]["manualOn"] = 0
 		threading.Timer(config_dict["autobattle"]["durAuto"], toggleAuto).start()
 
@@ -60,17 +65,17 @@ def castSkill():
 				print ("[" + datetime.datetime.fromtimestamp(time.time()).strftime('%d-%m %H:%M:%S') + "] - " + "'" + str(rand) + "'" + " seconds until next castSummon()")
 				threading.Timer(rand, castSummonNow).start()
 		for x in range(random.choice(config_dict["skills"]["distribution"])):
-			keyPress(random.choice(config_dict["skills"]["buttons"]), random.uniform(0.1,0.3))
+			keyPress(device, random.choice(config_dict["skills"]["buttons"]), random.uniform(0.1,0.3))
 			time.sleep(random.uniform(config_dict["skills"]["waitMin"],config_dict["skills"]["waitMax"]))
 
 def castBuff():
 	if config_dict["buffs"]["toggleNeeded"]:
-		keyPress(config_dict["buffs"]["toggleButton"], random.uniform(0.1,0.3))
+		keyPress(device, config_dict["buffs"]["toggleButton"], random.uniform(0.1,0.3))
 	for keyValue in config_dict["buffs"]["buttons"]:
-		keyPress(keyValue, random.uniform(0.1,0.3))
+		keyPress(device, keyValue, random.uniform(0.1,0.3))
 		time.sleep(random.uniform(config_dict["buffs"]["waitMin"],config_dict["buffs"]["waitMax"]))
 	if config_dict["buffs"]["toggleNeeded"]:
-		keyPress(config_dict["buffs"]["toggleButton"], random.uniform(0.1,0.3))
+		keyPress(device, config_dict["buffs"]["toggleButton"], random.uniform(0.1,0.3))
 
 def castBuffNow():
 	global buffNow
@@ -78,7 +83,7 @@ def castBuffNow():
 
 def castSummon():
 	for keyValue in config_dict["summons"]["buttons"]:
-		keyPress(keyValue, random.uniform(0.1,0.3))
+		keyPress(device, keyValue, random.uniform(0.1,0.3))
 		time.sleep(random.uniform(config_dict["summons"]["waitMin"],config_dict["summons"]["waitMax"]))
 
 def castSummonNow():
@@ -91,19 +96,19 @@ def charMove():
 		duration = random.uniform(config_dict["movement"]["distMin"],config_dict["movement"]["distMax"])
 		if movementDirection:
 			movementDuration += duration
-			keyPress('right', duration)
+			keyPress(device, 'right', duration)
 		else:
 			movementDuration -= duration
-			keyPress('left', duration)
+			keyPress(device, 'left', duration)
 
 		if movementCount <= 0:
 			if movementDuration > 0:
-				keyPress('left', movementDuration)
+				keyPress(device, 'left', movementDuration)
 			else:
-				keyPress('right', movementDuration * -1)
+				keyPress(device, 'right', movementDuration * -1)
 
 			print ("[" + datetime.datetime.fromtimestamp(time.time()).strftime('%d-%m %H:%M:%S') + "] - " + "Zero-ing character to starting point")
-			movementCount = random.choice(range(config_dict["movement"]["distMin"],config_dict["movement"]["distMax"],1))
+			movementCount = random.choice(range(config_dict["movement"]["stepsMin"],config_dict["movement"]["stepsMax"],1))
 			movementDuration = 0.0
 
 		movementDirection = not movementDirection

@@ -4,6 +4,11 @@ import random
 import json
 
 config = """{
+	"device": {
+		"host": "127.0.0.1",
+		"port": 5037,
+		"name": "emulator-5554"
+	},
 	"autobattle": {
 		"durAuto": 15,
 		"durManual": 60,

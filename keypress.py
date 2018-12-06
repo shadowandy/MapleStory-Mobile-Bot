@@ -8,8 +8,8 @@ import numpy as np
 
 # Connecting to BlueStacks
 # Requires ./adb start-server; ./adb devices to be done prior
-client = AdbClient(host="127.0.0.1", port=5037)
-device = client.device("emulator-5554")
+#client = AdbClient(host="127.0.0.1", port=5037)
+#device = client.device("emulator-5554")
 
 def encounteredreCAPTCHA():
 	template = cv2.imread('image/recaptcha.png',0)
@@ -24,7 +24,7 @@ def encounteredreCAPTCHA():
 	        flag = True
 	return flag
 
-def keyPress(keyValue, duration):
+def keyPress(device, keyValue, duration):
 	dur = int(duration * 1000)
 	loc = [0,0]
 
